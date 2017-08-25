@@ -1,3 +1,20 @@
+/* HOW CAN MIRRORS BE REAL IF OUR EYES AREN'T REAL */
+
+
 $(document).ready(function(){
-  $('body').append('<p>This is some text</p>')
+
+  // Initializing some vars
+  let gameStarted = false
+
+  $('#start-button').click(() => {
+    gameStarted = true
+    startGame()
+  })
+
+
+  function startGame () {
+    
+  }
+
+
 })

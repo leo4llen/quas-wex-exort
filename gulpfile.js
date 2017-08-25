@@ -6,12 +6,13 @@ const rename = require('gulp-rename');
 const babelify = require('gulp-babel');
 const watch = require('gulp-watch');
 const nodemon = require('gulp-nodemon');
-
+const sass = require('gulp-sass');
 
 
 
 gulp.task('css', () => {
-  return gulp.src('public/stylesheets/style.css')
+  return gulp.src('public/stylesheets/style.scss')
+            .pipe(sass().on('error', sass.logError))
             .pipe(minify_css())
             .pipe(rename('style.min.css'))
             .pipe(gulp.dest('public/stylesheets'))
@@ -39,9 +40,9 @@ gulp.task('browser-sync', ['nodemon'], () => {
         browser: "chrome.exe",
         port: 1337,
 	});
-  gulp.watch("public/stylesheets/src/*.scss", ['css']).on('change', browserSync.reload);
+  gulp.watch("public/stylesheets/style.scss", ['css']).on('change', browserSync.reload);
 
-  gulp.watch("public/javascripts/src/*.js", ['js']).on('change', browserSync.reload);
+  gulp.watch("public/javascripts/app.js", ['js']).on('change', browserSync.reload);
 
   gulp.watch("views/**/*.ejs").on('change', browserSync.reload);
 });
