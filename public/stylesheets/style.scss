@@ -1,7 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
+$main  : 'Montserrat', sans-serif;
+$gameFont : 'Press Start 2P', cursive;
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: $main;
 
   p {
     font-size: 16px;
@@ -13,7 +17,31 @@ body {
   margin-top: 20vh;
 
 
-  #caption {
+  .caption {
+    font-family: $gameFont;
     text-align: center;
+  }
+
+  #pre-game-row {
+    margin-top: 10vh;
+  }
+  #game-row {
+    margin-top: 10vh;
+
+
+    ul {
+      padding: 0;
+      list-style: none;
+
+      li {
+        display: inline-block;
+        margin-left: 10px;
+        margin-right: 10px;
+
+        img {
+          height: 75px;
+        }
+      }
+    }
   }
 }
