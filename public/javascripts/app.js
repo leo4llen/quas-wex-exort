@@ -8,7 +8,7 @@ $(document).ready(function(){
   let orbs
   let countdown = 2000
   // Hide game row initially
-  $('game-row').css('display' , 'none')
+  $('#game-row').css('display' , 'none')
 
 
   // Main keypress listener
@@ -17,7 +17,7 @@ $(document).ready(function(){
       if(e.which === 32){
         orbs  =   ['quas' , 'wex' , 'exort']
         $('#pre-game-row').css('display', 'none')
-        $('game-row').css('display', 'block')
+        $('#game-row').css('display', 'block')
         startGame()
       }
     }
@@ -43,7 +43,7 @@ $(document).ready(function(){
   function stopGame(){
     $('#pre-game-row').css('display', 'block')
     $('#game-row').css('display', 'none')
-    return gameStarted = false
+    gameStarted = false
   }
 
   function setOrbs (arr) {
