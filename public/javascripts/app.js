@@ -6,7 +6,9 @@ $(document).ready(function(){
   // Initializing some vars
   let gameStarted = false
   let orbs
+  let currentSpell
   let countdown = 2000
+  let timer
   // Hide game row initially
   $('#game-row').css('display' , 'none')
 
@@ -37,6 +39,7 @@ $(document).ready(function(){
   function startGame () {
     gameStarted = true;
     setOrbs (orbs)
+    timer = window.setTimeout(stopGame , countdown)
     spellify ()
   }
 
@@ -54,16 +57,38 @@ $(document).ready(function(){
   }
 
   function spellify (invokedOrbs) {
-    let timer = window.setTimeout(stopGame , countdown)
     if(invokedOrbs === undefined){
-      let currentSpell = generateSpell ()
+      currentSpell = generateSpell ()
+      displaySpell ()
+      console.log(currentSpell)
     }
     else {
-      window.clearTimeout(timer)
-      console.log('timeout cleared')
+      compareSpells (currentSpell.combination , invokedOrbs) ?  resetSpell () : console.log('Nope')
+
     }
   }
 
+
+
+  function resetSpell () {
+    countdown -= 50
+    window.clearTimeout(timer)
+    timer = window.setTimeout(stopGame , countdown)
+    currentSpell = generateSpell ()
+    displaySpell ()
+    console.log(currentSpell)
+  }
+
+  function displaySpell () {
+    $('#spell-div img').attr('src' , `/images/${currentSpell.name.toLowerCase().replace(/\s/ , '_')}.png`)
+    $('#spell-div .caption').html(currentSpell.name)
+  }
+
+
+  function compareSpells (generated , invoked) {
+    return (generated.length === invoked.length) &&
+           (generated.every((element , index) => element === invoked.sort()[index]))
+  }
 
   function changeOrbs (key , arr) {
     switch(key.toString().toLowerCase()){
@@ -86,40 +111,59 @@ $(document).ready(function(){
   }
 
   function generateSpell () {
-    let spell
-    switch(Math.floor(Math.random() * 10) + 1){
-      case 1:
-        spell = 'cold_snap'
-        break
-      case 2:
-        spell = 'ghost_walk'
-        break
-      case 3:
-       spell = 'ice_wall'
-       break
-      case 4:
-        spell = 'forge_spirits'
-        break
-      case 5:
-        spell = 'tornado'
-        break
-      case 6:
-        spell = 'chaos_meteor'
-        break
-      case 7:
-        spell = 'defeaning_blast'
-        break
-      case 8:
-        spell = 'alacrity'
-        break
-      case 9:
-        spell = 'emp'
-        break
-      case 10:
-        spell = 'sun_strike'
-        break
+    // Spell object
+    const spells = {
+      '1' : {
+        name : 'Cold Snap',
+        combination : ['quas' , 'quas' , 'quas']
+      },
+      '2' : {
+        name : 'Ghost Walk',
+        combination : ['quas' , 'quas' , 'wex']
+      },
+      '3' : {
+        name : 'Ice Wall',
+        combination : ['exort' , 'quas' , 'quas']
+      },
+      '4' : {
+        name : 'Forge Spirits',
+        combination : ['exort' , 'exort' , 'quas']
+      },
+      '5' : {
+        name : 'Tornado',
+        combination : ['quas' , 'wex' , 'wex']
+      },
+      '6' : {
+        name : 'Chaos Meteor',
+        combination : ['exort' , 'exort' , 'wex']
+      },
+      '7' : {
+        name : 'Defeaning Blast',
+        combination : ['exort' , 'quas' , 'wex']
+      },
+      '8' : {
+        name : 'Alacrity',
+        combination : ['exort' , 'wex' , 'wex']
+      },
+      '9' : {
+        name : 'EMP',
+        combination : ['wex' , 'wex' , 'wex']
+      },
+      '10' : {
+        name : 'Sun Strike',
+        combination : ['exort' , 'exort' , 'exort']
+      }
     }
-    return spell
+
+    let rng = Math.floor(Math.random() * 10) + 1
+
+    let selectedSpell = spells[rng.toString()]
+
+    if(currentSpell) {
+      return selectedSpell.name === currentSpell.name ? generateSpell () : selectedSpell
+    }
+    return selectedSpell
+
   }
 
 })
