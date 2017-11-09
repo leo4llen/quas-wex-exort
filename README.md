@@ -1,3 +1,3 @@
 # Dank Invoker Game
 
-### Dota 2 mini-game. [Heroku link](https://github.com/jbt/markdown-editor)
+### Dota 2 mini-game. [Heroku link](https://dank-invoker-game.herokuapp.com)
