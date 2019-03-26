@@ -1,4 +1,9 @@
 {
   "version": 2,
-  "builds": [{ "src": "index.html", "use": "@now/static" }]
+  "builds": [
+    { "src": "index.html", "use": "@now/static" },
+    { "src": "stylesheets/style.min.css", "use": "@now/static" },
+    { "src": "javascripts/app.min.js", "use": "@now/static" },
+    { "src": "images/*", "use": "@now/static" }
+  ]
 }
